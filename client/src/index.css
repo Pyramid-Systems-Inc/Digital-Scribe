@@ -61,12 +61,19 @@
 
 /* Custom utility classes using Tailwind v4 @utility directive */
 @utility papyrus-bg {
-  background-color: var(--color-papyrus);
-  background-image:
-    radial-gradient(circle at 20% 50%, rgba(120, 53, 15, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(120, 53, 15, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(120, 53, 15, 0.03) 0%, transparent 50%);
+  /* Use a semi-transparent background to let the texture show through */
+  background-color: rgba(247, 243, 233, 0.1); /* papyrus-light with 70% opacity */
+
+  /* Add a backdrop blur for a frosted-glass/vellum effect on supported browsers */
+  @supports (backdrop-filter: blur(3px)) or (-webkit-backdrop-filter: blur(3px)) {
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+  }
+  
+  /* A slightly more defined border that complements the transparent look */
   border: 1px solid rgba(120, 53, 15, 0.1);
+  
+  /* Keep the shadow for depth */
   box-shadow: var(--shadow-papyrus);
 }
 
