@@ -35,7 +35,7 @@
     line-height: 1.6;
     color: var(--color-hieroglyph-brown);
     background-color: var(--color-papyrus-light);
-    background-image: url('/papyrus-texture.jpg');
+    background-image: url('/papyrus-texture.png');
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
