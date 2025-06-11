@@ -1,68 +1,118 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Import Google Fonts first */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@import "tailwindcss";
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* Tailwind CSS v4 Theme Configuration */
+@theme {
+  /* Custom Colors - Papyrus Theme */
+  --color-papyrus-light: #f7f3e9;
+  --color-papyrus: #f0e6d2;
+  --color-papyrus-dark: #e8dcc6;
+  --color-nile-blue: #1e3a8a;
+  --color-nile-blue-light: #3b82f6;
+  --color-gold: #d97706;
+  --color-gold-light: #f59e0b;
+  --color-gold-dark: #92400e;
+  --color-hieroglyph-brown: #451a03;
+  --color-hieroglyph-brown-light: #78350f;
+  
+  /* Custom Fonts */
+  --font-serif: "Crimson Text", "Times New Roman", serif;
+  --font-display: "Cinzel", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  
+  /* Custom Shadows */
+  --shadow-papyrus: 0 4px 6px -1px rgba(139, 69, 19, 0.1), 0 2px 4px -1px rgba(139, 69, 19, 0.06);
+  --shadow-gold: 0 4px 6px -1px rgba(217, 119, 6, 0.3), 0 2px 4px -1px rgba(217, 119, 6, 0.2);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* Global base styles */
+@layer base {
+  body {
+    margin: 0;
+    font-family: var(--font-serif);
+    line-height: 1.6;
+    color: var(--color-hieroglyph-brown);
+    background-color: var(--color-papyrus-light);
+    background-image: url('/papyrus-texture.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
   }
-  a:hover {
-    color: #747bff;
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-nile-blue);
   }
+  
   button {
-    background-color: #f9f9f9;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
   }
+  
+  input, textarea {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom utility classes using Tailwind v4 @utility directive */
+@utility papyrus-bg {
+  background-color: var(--color-papyrus);
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(120, 53, 15, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(120, 53, 15, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(120, 53, 15, 0.03) 0%, transparent 50%);
+  border: 1px solid rgba(120, 53, 15, 0.1);
+  box-shadow: var(--shadow-papyrus);
+}
+
+@utility gold-accent {
+  color: var(--color-gold);
+}
+
+@utility gold-bg {
+  background-color: var(--color-gold);
+  color: white;
+}
+
+@utility gold-border {
+  border-color: var(--color-gold);
+}
+
+@utility nile-blue {
+  color: var(--color-nile-blue);
+}
+
+@utility nile-blue-bg {
+  background-color: var(--color-nile-blue);
+  color: white;
+}
+
+@utility hieroglyph-brown {
+  color: var(--color-hieroglyph-brown);
+}
+
+@utility text-shadow-gold {
+  text-shadow: 2px 2px 4px rgba(217, 119, 6, 0.3);
+}
+
+@utility text-shadow-papyrus {
+  text-shadow: 1px 1px 2px rgba(139, 69, 19, 0.2);
+}
+
+@utility shadow-papyrus {
+  box-shadow: var(--shadow-papyrus);
+}
+
+@utility shadow-gold {
+  box-shadow: var(--shadow-gold);
+}
+
+@utility border-aged {
+  border: 2px solid;
+  border-image: linear-gradient(45deg, var(--color-gold), var(--color-hieroglyph-brown-light), var(--color-gold)) 1;
 }
