@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { translateText } from './controllers/translationController';
 
 // Load environment variables
 dotenv.config();
@@ -17,13 +18,40 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Digital Scribe Server is running!' });
 });
 
-// API routes placeholder
-app.get('/api/v1', (req, res) => {
+// API v1 Router
+const apiV1Router = express.Router();
+
+// API v1 base route
+apiV1Router.get('/', (req, res) => {
   res.json({ message: 'Digital Scribe API v1', version: '1.0.0' });
+});
+
+// Translation endpoint
+apiV1Router.post('/translate', translateText);
+
+// Mount API v1 router
+app.use('/api/v1', apiV1Router);
+
+// Error handling middleware
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('[Server] Error:', err.stack);
+  res.status(500).json({
+    error: 'Internal Server Error',
+    message: 'An unexpected error occurred'
+  });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Not Found',
+    message: `Route ${req.originalUrl} not found`
+  });
 });
 
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
   console.log(`📚 Digital Scribe API v1 available at http://localhost:${PORT}/api/v1`);
+  console.log(`🔤 Translation endpoint: POST http://localhost:${PORT}/api/v1/translate`);
 });

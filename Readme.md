@@ -28,12 +28,32 @@ This project is not just a translator; it's an educational tool and a content cr
 
 ## 🛠️ Tech Stack
 
-*   **Front-End:** React (with Vite), TypeScript, Tailwind CSS, Framer Motion (for animations).
-*   **Back-End:** Node.js, Express.js, TypeScript.
-*   **Image Generation:** `html-to-image` or `dom-to-image` library to convert the on-screen cartouche into a downloadable file.
-*   **Database:** MongoDB or PostgreSQL for the "Learn" section content.
-*   **API Communication:** Axios or Fetch API.
-*   **Deployment:** Vercel (for Front-End), Render/Heroku (for Back-End).
+### Currently Implemented
+*   **Front-End:** React 19 (with Vite), TypeScript, Axios for API communication
+*   **Back-End:** Node.js, Express.js 5, TypeScript, CORS enabled
+*   **Data Storage:** JSON-based hieroglyph definitions and translation mappings
+*   **Assets:** 30 SVG hieroglyph images with full metadata
+
+### Planned Additions
+*   **Styling:** Tailwind CSS, Framer Motion (for animations)
+*   **Image Generation:** `html-to-image` library for downloadable cartouches
+*   **Database:** MongoDB for "Learn" section content
+*   **Deployment:** Vercel (Front-End), Render/Heroku (Back-End)
+
+## 📊 Development Status
+
+### ✅ Completed Features
+- **✅ Task 1.1: Project Scaffolding & Environment Setup** - Complete monorepo structure with TypeScript-configured client (React + Vite) and server (Node.js + Express)
+- **✅ Task 1.2: Hieroglyph Data Modeling & Sourcing** - 30 hieroglyph definitions with SVG images, complete phonetic translation mapping system
+- **✅ Task 1.3: Backend - Translation API Endpoint** - Functional REST API at `POST /api/v1/translate` with input validation and error handling
+
+### 🔧 Current API Endpoints
+- **POST** `/api/v1/translate` - Translates English text to hieroglyph sequence
+  - **Request Body:** `{ "text": "your text here" }`
+  - **Response:** Array of glyph objects with metadata and image URLs
+
+### 🚧 In Development
+- Task 1.4: Frontend - Basic Composer & API Integration (Next Phase)
 
 ## 🏁 Getting Started
 
@@ -74,12 +94,24 @@ This project is not just a translator; it's an educational tool and a content cr
     cd server
     npm run dev
     ```
-    The server will start on `http://localhost:8080` (or your configured port).
+    The server will start on `http://localhost:8080` and serve the translation API.
 
 2.  **Start the front-end development server:**
     ```sh
     cd client
     npm run dev
     ```
-    The app will be available at `http://localhost:5173`.
+    The React app will be available at `http://localhost:5173`.
+
+### Testing the API
+
+You can test the translation endpoint directly:
+
+```bash
+curl -X POST http://localhost:8080/api/v1/translate \
+  -H "Content-Type: application/json" \
+  -d '{"text": "hello"}'
+```
+
+This will return an array of hieroglyph objects corresponding to the input text.
 
