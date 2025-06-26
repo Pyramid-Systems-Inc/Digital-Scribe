@@ -2,12 +2,17 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { translateText } from './controllers/translationController';
+import learnRoutes from './routes/learnRoutes'; // Import learn routes
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+// --- Database Connection (to be implemented) ---
+// import connectDB from './config/db';
+// connectDB();
 
 // Middleware
 app.use(cors());
@@ -28,6 +33,9 @@ apiV1Router.get('/', (req, res) => {
 
 // Translation endpoint
 apiV1Router.post('/translate', translateText);
+
+// Mount the new "Learn" routes
+apiV1Router.use('/learn', learnRoutes);
 
 // Mount API v1 router
 app.use('/api/v1', apiV1Router);
