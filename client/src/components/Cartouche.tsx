@@ -36,9 +36,11 @@ const Cartouche: React.FC<CartoucheProps> = ({ glyphs }) => {
         .cartouche-stroke { stroke: #003366; stroke-width: 2; fill: none; } /* Nile Blue */
         .inner-stroke { stroke: #003366; stroke-width: 1; fill: none; } /* Nile Blue */
         .hieroglyph { fill: #FFD700; stroke: #003366; stroke-width: 0.5; } /* Gold fill, Nile Blue stroke */
-        .glyph-background { fill: #f9f7f0; } /* Papyrus-like background for glyphs */
       `}
           </style>
+          <pattern id="papyrus-texture" patternUnits="userSpaceOnUse" width="100%" height="100%">
+            <image href="/papyrus-texture.png" x="0" y="0" width="320" height="120" preserveAspectRatio="none" />
+          </pattern>
         </defs>
         
         {/* Main cartouche body - outer border */}
@@ -68,6 +70,7 @@ const Cartouche: React.FC<CartoucheProps> = ({ glyphs }) => {
        Q 278 22 265 22
        Z"
           className="inner-stroke"
+          fill="url(#papyrus-texture)"
         />
   
         {/* Rope tie section - outer */}
@@ -225,13 +228,10 @@ const Cartouche: React.FC<CartoucheProps> = ({ glyphs }) => {
           <text x="295.5" y="101.5">𓀫</text>
           <text x="300.5" y="101.5">𓂬</text>
         </g>
-        {/* Background for the glyphs */}
-        <rect x="25" y="25" width="250" height="70" className="glyph-background" />
-
         {/* Glyphs container: Using foreignObject to embed HTML inside SVG */}
         <foreignObject x="30" y="30" width="240" height="60">
           <div
-            className="w-full h-full flex flex-wrap items-center justify-center gap-1 p-1 overflow-y-auto"
+            className="w-full h-full flex flex-wrap items-center justify-center gap-1 p-1 overflow-y-auto text-[#FFD700]"
           >
             {glyphs.map((glyph) => (
               <Glyph key={glyph.id || glyph.gardinerCode} glyph={glyph} />
