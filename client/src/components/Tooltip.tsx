@@ -7,15 +7,17 @@ interface TooltipProps {
   unicode: string;
   // x?: number; // Manual positioning if needed
   // y?: number; // Manual positioning if needed
+  style?: React.CSSProperties;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ title, description, category, unicode }) => {
+const Tooltip: React.FC<TooltipProps> = ({ title, description, category, unicode, style }) => {
   return (
     <div
-      className="absolute z-10 p-2 sm:p-3 -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full
-                 bg-papyrus-bg bg-opacity-85 shadow-lg rounded-md
-                 border border-gray-400 border-opacity-50
+      className="absolute z-50 p-2 sm:p-3
+                 bg-papyrus-bg bg-opacity-95 shadow-xl rounded-md
+                 border border-gray-400 border-opacity-60
                  w-max max-w-[16rem] sm:max-w-[18rem] md:max-w-xs text-xs sm:text-sm text-gray-800"
+      style={style}
       role="tooltip"
     >
       <h3 className="font-bold text-sm sm:text-base mb-1">{title}</h3>

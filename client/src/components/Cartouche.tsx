@@ -33,13 +33,14 @@ const Cartouche: React.FC<CartoucheProps> = ({ glyphs }) => {
           <style>
             {`
         .cartouche-fill { fill: #f9f7f0; }
-        .cartouche-stroke { stroke: #2c1810; stroke-width: 2; fill: none; }
-        .inner-stroke { stroke: #2c1810; stroke-width: 1; fill: none; }
-        .hieroglyph { fill: none; stroke: #2c1810; stroke-width: 1; }
+        .cartouche-stroke { stroke: #003366; stroke-width: 2; fill: none; } /* Nile Blue */
+        .inner-stroke { stroke: #003366; stroke-width: 1; fill: none; } /* Nile Blue */
+        .hieroglyph { fill: #FFD700; stroke: #003366; stroke-width: 0.5; } /* Gold fill, Nile Blue stroke */
+        .glyph-background { fill: #f9f7f0; } /* Papyrus-like background for glyphs */
       `}
           </style>
         </defs>
-  
+        
         {/* Main cartouche body - outer border */}
         <path
           d="M 35 15
@@ -51,7 +52,8 @@ const Cartouche: React.FC<CartoucheProps> = ({ glyphs }) => {
        L 285 35
        Q 285 15 265 15
        Z"
-          className="cartouche-fill cartouche-stroke"
+          className="cartouche-stroke"
+          fill="#FFD700"
         />
   
         {/* Main cartouche body - inner border */}
@@ -223,18 +225,20 @@ const Cartouche: React.FC<CartoucheProps> = ({ glyphs }) => {
           <text x="295.5" y="101.5">𓀫</text>
           <text x="300.5" y="101.5">𓂬</text>
         </g>
-      </svg>
+        {/* Background for the glyphs */}
+        <rect x="25" y="25" width="250" height="70" className="glyph-background" />
 
-      {/* Glyphs container: Using Flexbox for centering and wrapping */}
-      <div className="relative z-10 flex flex-wrap items-center justify-center h-full gap-x-1 sm:gap-x-2 gap-y-1 sm:gap-y-2 md:gap-y-3 p-3 sm:p-4 md:p-6 lg:p-8 overflow-y-auto">
-        {glyphs.map((glyph) => (
-          // Use the new Glyph component
-          // Ensure the key is unique, using glyph.id (as per updated GlyphType)
-          // or glyph.gardinerCode if id is not guaranteed unique here yet.
-          // For now, assuming glyph.id will be the standard.
-          <Glyph key={glyph.id || glyph.gardinerCode} glyph={glyph} />
-        ))}
-      </div>
+        {/* Glyphs container: Using foreignObject to embed HTML inside SVG */}
+        <foreignObject x="30" y="30" width="240" height="60">
+          <div
+            className="w-full h-full flex flex-wrap items-center justify-center gap-1 p-1 overflow-y-auto"
+          >
+            {glyphs.map((glyph) => (
+              <Glyph key={glyph.id || glyph.gardinerCode} glyph={glyph} />
+            ))}
+          </div>
+        </foreignObject>
+      </svg>
     </div>
   );
 };
