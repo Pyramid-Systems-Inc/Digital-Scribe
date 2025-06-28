@@ -8,7 +8,7 @@ import type { GlyphType } from '../types';
 // API Response interface
 interface TranslationResponse {
   glyphs: {
-    glyphId: string;
+    gardinerCode: string;
     unicode: string;
     phoneticValue: string;
     description: string;
@@ -48,8 +48,8 @@ const HieroglyphComposer: React.FC<HieroglyphComposerProps> = ({ initialText = '
           { text: inputText }
         );
         const mappedGlyphs: GlyphType[] = response.data.glyphs.map((glyph, index) => ({
-          id: `${glyph.glyphId}-${index}`,
-          gardinerCode: glyph.glyphId,
+          id: `${glyph.gardinerCode}-${index}`,
+          gardinerCode: glyph.gardinerCode,
           unicode: glyph.unicode,
           phoneticValue: glyph.phoneticValue,
           description: glyph.description,
