@@ -1,3 +1,4 @@
+
 import { Request, Response } from 'express';
 
 // --- Mock Data (to be replaced by database calls) ---
@@ -33,22 +34,20 @@ export const getAllGlyphs = async (req: Request, res: Response): Promise<void> =
  */
 export const getAllGods = async (req: Request, res: Response): Promise<void> => {
   try {
-    // const gods = await God.find().sort({ name: 1 }); // Real DB call
-    res.json(mockGods);
+    await db.read(); // Make sure we have the latest data
+    const gods = db.data?.gods || [];
+    res.status(200).json(gods);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching gods' });
   }
 };
 
-/**
- * Get a single god by ID
- */
-export const getGodById = async (req: Request, res: Response): Promise<void> => {
+export const getGodById = async (req: Request, res: Response) => {
   try {
-    // const god = await God.findById(req.params.id); // Real DB call
-    const god = mockGods.find(g => g.id === req.params.id);
+    await db.read(); // Make sure we have the latest data
+    const god = db.data?.gods.find((g) => g.id === req.params.id);
     if (god) {
-      res.json(god);
+      res.status(200).json(god);
     } else {
       res.status(404).json({ message: 'God not found' });
     }

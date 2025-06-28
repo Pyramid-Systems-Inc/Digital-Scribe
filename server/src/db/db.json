@@ -1,0 +1,18 @@
+
+{
+  "gods": [
+    {
+      "id": "1",
+      "name": "Ra",
+      "description": "The ancient Egyptian sun god, a powerful deity and a central figure in the Egyptian pantheon.",
+      "imageUrl": "/images/gods/ra.png"
+    },
+    {
+      "id": "2",
+      "name": "Anubis",
+      "description": "The god of death, mummification, and the afterlife. He is often depicted with the head of a jackal.",
+      "imageUrl": "/images/gods/anubis.png"
+    }
+  ],
+  "glyphs": []
+}

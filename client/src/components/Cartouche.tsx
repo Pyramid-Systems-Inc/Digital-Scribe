@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { GlyphType } from '../types'; // Use shared GlyphType
 import Glyph from './Glyph'; // Import the new Glyph component
 
@@ -233,9 +234,19 @@ const Cartouche: React.FC<CartoucheProps> = ({ glyphs }) => {
           <div
             className="w-full h-full flex flex-wrap items-center justify-center gap-1 p-1 overflow-y-auto text-[#FFD700]"
           >
-            {glyphs.map((glyph) => (
-              <Glyph key={glyph.id || glyph.gardinerCode} glyph={glyph} />
-            ))}
+            <AnimatePresence>
+              {glyphs.map((glyph) => (
+                <motion.div
+                  key={glyph.id || glyph.gardinerCode}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Glyph glyph={glyph} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         </foreignObject>
       </svg>

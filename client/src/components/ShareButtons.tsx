@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface ShareButtonsProps {
   textToShare: string;
@@ -15,30 +16,44 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ textToShare, onDownloadPNG,
   return (
     <div className="mt-4 pt-4 border-t border-gold/20 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
       {/* Download Buttons */}
-      <button onClick={onDownloadPNG} className="gold-bg text-white px-4 py-2 rounded-lg text-sm font-sans hover:opacity-90 transition-opacity">
+      <motion.button
+        onClick={onDownloadPNG}
+        className="gold-bg text-white px-4 py-2 rounded-lg text-sm font-sans hover:opacity-90 transition-opacity"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
         Download PNG
-      </button>
-      <button onClick={onDownloadSVG} className="gold-bg text-white px-4 py-2 rounded-lg text-sm font-sans hover:opacity-90 transition-opacity">
+      </motion.button>
+      <motion.button
+        onClick={onDownloadSVG}
+        className="gold-bg text-white px-4 py-2 rounded-lg text-sm font-sans hover:opacity-90 transition-opacity"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
         Download SVG
-      </button>
+      </motion.button>
 
       {/* Social Share Links */}
-      <a
+      <motion.a
         href={`https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
         className="nile-blue-bg text-white px-4 py-2 rounded-lg text-sm font-sans hover:opacity-90 transition-opacity"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         Share on X
-      </a>
-      <a
+      </motion.a>
+      <motion.a
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}"e=${encodedText}`}
         target="_blank"
         rel="noopener noreferrer"
         className="nile-blue-bg text-white px-4 py-2 rounded-lg text-sm font-sans hover:opacity-90 transition-opacity"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         Share on Facebook
-      </a>
+      </motion.a>
     </div>
   );
 };

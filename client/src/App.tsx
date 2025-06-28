@@ -4,9 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import LearnPage from './pages/LearnPage';
-// Placeholder pages for gallery/profile, can be built out later
-// import GlyphGalleryPage from './pages/GlyphGalleryPage';
-// import GodsListPage from './pages/GodsListPage';
+import GodsListPage from './pages/GodsListPage';
+import GodProfilePage from './pages/GodProfilePage';
 
 function App() {
   return (
@@ -17,9 +16,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/learn" element={<LearnPage />} />
-            {/* Add routes for gallery/detail pages once they are created */}
-            {/* <Route path="/learn/glyphs" element={<GlyphGalleryPage />} /> */}
-            {/* <Route path="/learn/gods" element={<GodsListPage />} /> */}
+            <Route path="/learn/gods" element={<GodsListPage />} />
+            <Route path="/learn/gods/:id" element={<GodProfilePage />} />
           </Routes>
         </main>
         <Footer />
