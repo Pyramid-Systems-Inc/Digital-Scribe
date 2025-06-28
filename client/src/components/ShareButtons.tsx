@@ -45,7 +45,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ textToShare, onDownloadPNG,
         Share on X
       </motion.a>
       <motion.a
-        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}"e=${encodedText}`}
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`}
         target="_blank"
         rel="noopener noreferrer"
         className="nile-blue-bg text-white px-4 py-2 rounded-lg text-sm font-sans hover:opacity-90 transition-opacity"

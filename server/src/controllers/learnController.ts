@@ -1,3 +1,4 @@
+import * as path from 'path';
 
 import { Request, Response } from 'express';
 
@@ -23,7 +24,6 @@ readDb();
 
 // In a real scenario, this would come from the glyphs.json or the Glyph model in the DB
 import * as fs from 'fs';
-import * as path from 'path';
 const mockGlyphs = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/glyphs.json'), 'utf8'));
 
 
