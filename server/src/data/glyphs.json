@@ -1,0 +1,186 @@
+[
+    {
+        "glyphId": "G1",
+        "phonetic": "a",
+        "unicode": "U+1313F",
+        "description": "Egyptian Vulture",
+        "category": "Birds",
+        "imageUrl": "/glyphs/G1.svg"
+    },
+    {
+        "glyphId": "D58",
+        "phonetic": "b",
+        "unicode": "U+1308B",
+        "description": "Foot",
+        "category": "Parts of the Human Body",
+        "imageUrl": "/glyphs/D58.svg"
+    },
+    {
+        "glyphId": "D46",
+        "phonetic": "d",
+        "unicode": "U+1307F",
+        "description": "Hand",
+        "category": "Parts of the Human Body",
+        "imageUrl": "/glyphs/D46.svg"
+    },
+    {
+        "glyphId": "I9",
+        "phonetic": "f",
+        "unicode": "U+13191",
+        "description": "Horned Viper",
+        "category": "Reptiles",
+        "imageUrl": "/glyphs/I9.svg"
+    },
+    {
+        "glyphId": "W11",
+        "phonetic": "g",
+        "unicode": "U+133BC",
+        "description": "Jar Stand",
+        "category": "Vessels",
+        "imageUrl": "/glyphs/W11.svg"
+    },
+    {
+        "glyphId": "V28",
+        "phonetic": "h",
+        "unicode": "U+13383",
+        "description": "Twisted Flax",
+        "category": "Rope",
+        "imageUrl": "/glyphs/V28.svg"
+    },
+    {
+        "glyphId": "M17",
+        "phonetic": "i",
+        "unicode": "U+131CB",
+        "description": "Reed",
+        "category": "Plants",
+        "imageUrl": "/glyphs/M17.svg"
+    },
+    {
+        "glyphId": "I10",
+        "phonetic": "j",
+        "unicode": "U+13193",
+        "description": "Cobra",
+        "category": "Reptiles",
+        "imageUrl": "/glyphs/I10.svg"
+    },
+    {
+        "glyphId": "V31",
+        "phonetic": "k",
+        "unicode": "U+13386",
+        "description": "Basket",
+        "category": "Rope",
+        "imageUrl": "/glyphs/V31.svg"
+    },
+    {
+        "glyphId": "E23",
+        "phonetic": "l",
+        "unicode": "U+130F9",
+        "description": "Lion",
+        "category": "Mammals",
+        "imageUrl": "/glyphs/E23.svg"
+    },
+    {
+        "glyphId": "G17",
+        "phonetic": "m",
+        "unicode": "U+13153",
+        "description": "Owl",
+        "category": "Birds",
+        "imageUrl": "/glyphs/G17.svg"
+    },
+    {
+        "glyphId": "N35",
+        "phonetic": "n",
+        "unicode": "U+13216",
+        "description": "Water Ripple",
+        "category": "Sky, Earth, Water",
+        "imageUrl": "/glyphs/N35.svg"
+    },
+    {
+        "glyphId": "Q3",
+        "phonetic": "p",
+        "unicode": "U+132AA",
+        "description": "Stool",
+        "category": "Domestic",
+        "imageUrl": "/glyphs/Q3.svg"
+    },
+    {
+        "glyphId": "N29",
+        "phonetic": "q",
+        "unicode": "U+1320E",
+        "description": "Hill",
+        "category": "Sky, Earth, Water",
+        "imageUrl": "/glyphs/N29.svg"
+    },
+    {
+        "glyphId": "R8",
+        "phonetic": "r",
+        "unicode": "U+132CD",
+        "description": "Mouth",
+        "category": "Temple",
+        "imageUrl": "/glyphs/R8.svg"
+    },
+    {
+        "glyphId": "S29",
+        "phonetic": "s",
+        "unicode": "U+132F4",
+        "description": "Folded Cloth",
+        "category": "Clothing",
+        "imageUrl": "/glyphs/S29.svg"
+    },
+    {
+        "glyphId": "X1",
+        "phonetic": "t",
+        "unicode": "U+133CF",
+        "description": "Loaf",
+        "category": "Loaves",
+        "imageUrl": "/glyphs/X1.svg"
+    },
+    {
+        "glyphId": "V4",
+        "phonetic": "w",
+        "unicode": "U+13366",
+        "description": "Lasso",
+        "category": "Rope",
+        "imageUrl": "/glyphs/V4.svg"
+    },
+    {
+        "glyphId": "K1",
+        "phonetic": "y",
+        "unicode": "U+131AB",
+        "description": "Fish",
+        "category": "Fish",
+        "imageUrl": "/glyphs/K1.svg"
+    },
+    {
+        "glyphId": "O34",
+        "phonetic": "z",
+        "unicode": "U+13278",
+        "description": "Door Bolt",
+        "category": "Buildings",
+        "imageUrl": "/glyphs/O34.svg"
+    },
+    {
+        "glyphId": "M8",
+        "phonetic": "sh",
+        "unicode": "U+131C0",
+        "description": "Pool with Flowers",
+        "category": "Plants",
+        "imageUrl": "/glyphs/M8.svg"
+    },
+    {
+        "glyphId": "V13",
+        "phonetic": "th",
+        "unicode": "U+13371",
+        "description": "Tether",
+        "category": "Rope",
+        "imageUrl": "/glyphs/V13.svg"
+    },
+    {
+        "glyphId": "F32",
+        "phonetic": "ch",
+        "unicode": "U+1311D",
+        "description": "Belly",
+        "category": "Parts of the Human Body",
+        "imageUrl": "/glyphs/F32.svg"
+    }
+]

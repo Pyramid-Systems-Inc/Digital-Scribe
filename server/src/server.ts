@@ -1,6 +1,7 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { Application, Request, Response } from 'express';
+import v1Routes from './routes/v1';
 
 dotenv.config();
 
@@ -10,6 +11,9 @@ const PORT = process.env.PORT || 8080;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Routes
+app.use('/api/v1', v1Routes);
 
 // Health Check Endpoint (To verify setup)
 app.get('/health', (req: Request, res: Response) => {
