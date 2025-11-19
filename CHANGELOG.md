@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Client:** Initialized Vite + React + TypeScript environment.
+- **Client:** Installed Axios for future API integration.
+- **Cleanup:** Removed default React boilerplate code.
 - **Infrastructure:** Initialized Monorepo structure.
 - **Server:** Configured Node.js + Express + TypeScript environment.
 - **Testing:** Configured Jest + Supertest for backend testing.
