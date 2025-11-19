@@ -1,10 +1,12 @@
+import { HieroglyphComposer } from './components/HieroglyphComposer';
+
 function App() {
   return (
     <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>The Digital Scribe</h1>
-      <p>Client Environment: <strong>Active</strong></p>
+      <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>The Digital Scribe</h1>
+      <HieroglyphComposer />
     </div>
   )
 }
 
-export default App
+export default App;
