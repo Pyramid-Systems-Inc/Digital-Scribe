@@ -1,17 +1,24 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
+import Header from './components/Header';
+import GodProfilePage from './pages/GodProfilePage';
+import GodsListPage from './pages/GodsListPage';
 import HomePage from './pages/HomePage';
 import LearnPage from './pages/LearnPage';
-import GodsListPage from './pages/GodsListPage';
-import GodProfilePage from './pages/GodProfilePage';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-papyrus-light bg-cover bg-fixed bg-no-repeat" style={{ backgroundImage: "url('/papyrus-texture.png')" }}>
+      <div className="min-h-screen flex flex-col relative overflow-x-hidden">
+        {/* 
+          Background is now handled globally in index.css.
+          We add a subtle gradient overlay here for depth if needed, 
+          or keep it clean to let the body texture shine.
+        */}
+
         <Header />
-        <main className="flex-1 container mx-auto px-2 sm:px-4 py-4 sm:py-6 md:py-8">
+
+        <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative z-10">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/learn" element={<LearnPage />} />
@@ -19,6 +26,7 @@ function App() {
             <Route path="/learn/gods/:id" element={<GodProfilePage />} />
           </Routes>
         </main>
+
         <Footer />
       </div>
     </Router>
