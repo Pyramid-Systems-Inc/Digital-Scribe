@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { translateText, Glyph } from '../services/api';
+import { translateText, type Glyph } from '../services/api';
 
 export const HieroglyphComposer = () => {
     // State
