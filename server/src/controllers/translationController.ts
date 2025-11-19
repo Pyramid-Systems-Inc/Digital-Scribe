@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import * as path from 'path';
 import * as fs from 'fs';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
+import * as path from 'path';
 
-// Type definitions
-interface Glyph {
-  gardinerCode: string;
+// Interface matching the actual JSON structure in glyphs.json
+interface JsonGlyph {
+  glyphId: string;
   unicode: string;
   phoneticValue: string;
   description: string;
@@ -14,37 +14,51 @@ interface Glyph {
   imageUrl: string;
 }
 
-interface Data {
-  translationMap: { [key: string]: string[] };
+// Interface for the response object (combining JSON data + frontend expectations)
+interface ResponseGlyph extends JsonGlyph {
+  gardinerCode: string; // Frontend expects this property
 }
 
-// Initialize lowdb for translationMap
-const adapter = new JSONFile<Data>(path.join(__dirname, '../data/translationMap.json'));
-const db = new Low<Data>(adapter, { translationMap: {} });
+// The JSON file is a direct map of strings to string arrays
+type TranslationMap = { [key: string]: string[] };
 
-async function readDb() {
-    await db.read();
+// Initialize lowdb
+const adapter = new JSONFile<TranslationMap>(path.join(__dirname, '../data/translationMap.json'));
+const db = new Low<TranslationMap>(adapter, {});
+
+// Load glyphs data synchronously with error checking
+let glyphsData: JsonGlyph[] = [];
+try {
+  const glyphsPath = path.join(__dirname, '../data/glyphs.json');
+  const rawData = fs.readFileSync(glyphsPath, 'utf8');
+  glyphsData = JSON.parse(rawData);
+  console.log(`[Server] Loaded ${glyphsData.length} glyph definitions.`);
+
+  // Debug: Print keys of the first glyph to verify structure
+  if (glyphsData.length > 0) {
+    console.log(`[Server] Data structure check - Keys: ${Object.keys(glyphsData[0]).join(', ')}`);
+  }
+} catch (error) {
+  console.error('[Server] CRITICAL ERROR: Could not load glyphs.json', error);
 }
-readDb();
-
-// Load glyphs data (still using fs for now as per instructions)
-const glyphsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/glyphs.json'), 'utf8'));
 
 interface TranslationRequest {
   text: string;
 }
 
-// Multi-character phonemes that should be checked first
 const DIGRAPHS = ['sh', 'th', 'ch', 'wh'];
 
-/**
- * Translates English text to hieroglyphs using phonetic mapping
- */
 export const translateText = async (req: Request, res: Response): Promise<void> => {
   try {
+    // Ensure DB is loaded
+    if (!db.data || Object.keys(db.data).length === 0) {
+      await db.read();
+    }
+
+    // Default to empty object if read failed
+    const translationMap = db.data || {};
     const { text }: TranslationRequest = req.body;
 
-    // Input validation
     if (!text || typeof text !== 'string') {
       res.status(400).json({
         error: 'Invalid input',
@@ -53,82 +67,89 @@ export const translateText = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    // Sanitize input - lowercase and trim whitespace
     const sanitizedText = text.toLowerCase().trim();
 
     if (sanitizedText.length === 0) {
       res.status(400).json({
         error: 'Invalid input',
-        message: 'Text cannot be empty after sanitization'
+        message: 'Text cannot be empty'
       });
       return;
     }
 
     console.log(`[Translation] Processing text: "${sanitizedText}"`);
 
-    // Translation logic
-    const translatedGlyphs: Glyph[] = [];
+    const translatedGlyphs: ResponseGlyph[] = [];
     let i = 0;
 
     while (i < sanitizedText.length) {
       let matched = false;
 
-      // Check for multi-character matches (digraphs) first
+      // 1. Check Digraphs (Multi-character sounds) first
       for (const digraph of DIGRAPHS) {
         if (sanitizedText.substring(i, i + digraph.length) === digraph) {
-          const glyphIds = db.data.translationMap[digraph];
-          
+          const glyphIds = translationMap[digraph];
+
           if (glyphIds && glyphIds.length > 0) {
-            // Use the first glyph ID for the phoneme
-            const gardinerCode = glyphIds[0];
-            const glyph = glyphsData.find((g: Glyph) => g.gardinerCode === gardinerCode);
-            
+            const targetId = glyphIds[0];
+
+            // FIX: Search using 'glyphId' which exists in the JSON
+            const glyph = glyphsData.find((g) => g.glyphId === targetId);
+
             if (glyph) {
-              translatedGlyphs.push(glyph);
-              console.log(`[Translation] Matched digraph "${digraph}" -> ${gardinerCode}`);
+              translatedGlyphs.push({
+                ...glyph,
+                gardinerCode: glyph.glyphId // Add alias for frontend compatibility
+              });
+              console.log(`[Translation] Matched digraph "${digraph}" -> ${targetId}`);
+            } else {
+              console.warn(`[Translation] WARNING: ID ${targetId} found in map but not in glyphs.json`);
             }
           }
-          
+
           i += digraph.length;
           matched = true;
           break;
         }
       }
 
-      // If no digraph matched, check single character
+      // 2. Check Single Characters if no digraph matched
       if (!matched) {
         const char = sanitizedText[i];
-        
-        // Skip spaces, numbers, and punctuation
+
+        // Skip non-alphabetic characters
         if (char.match(/[^a-z]/)) {
-          console.log(`[Translation] Skipping character: "${char}"`);
           i++;
           continue;
         }
 
-        // Look up single character in translation map
-        const glyphIds = db.data.translationMap[char];
-        
+        const glyphIds = translationMap[char];
+
         if (glyphIds && glyphIds.length > 0) {
-          // Use the first glyph ID for the character
-          const gardinerCode = glyphIds[0];
-          const glyph = glyphsData.find((g: Glyph) => g.gardinerCode === gardinerCode);
-          
+          const targetId = glyphIds[0];
+
+          // FIX: Search using 'glyphId'
+          const glyph = glyphsData.find((g) => g.glyphId === targetId);
+
           if (glyph) {
-            translatedGlyphs.push(glyph);
-            console.log(`[Translation] Matched character "${char}" -> ${gardinerCode}`);
+            translatedGlyphs.push({
+              ...glyph,
+              gardinerCode: glyph.glyphId // Add alias for frontend compatibility
+            });
+            console.log(`[Translation] Matched character "${char}" -> ${targetId}`);
+          } else {
+            console.warn(`[Translation] WARNING: ID ${targetId} found in map but not in glyphs.json`);
           }
         } else {
           console.log(`[Translation] No mapping found for character: "${char}"`);
         }
-        
+
         i++;
       }
     }
 
     console.log(`[Translation] Completed. Found ${translatedGlyphs.length} glyphs`);
 
-    // Return the ordered array of glyph objects
     res.json({
       originalText: text,
       sanitizedText: sanitizedText,
@@ -140,7 +161,7 @@ export const translateText = async (req: Request, res: Response): Promise<void> 
     console.error('[Translation] Error processing translation:', error);
     res.status(500).json({
       error: 'Translation failed',
-      message: 'An internal server error occurred while processing the translation'
+      message: 'An internal server error occurred'
     });
   }
 };
