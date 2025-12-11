@@ -1,0 +1,28 @@
+/* 
+ * Global Styles for The Digital Scribe 2.0
+ * 
+ * This file contains global CSS variables and base styles.
+ * The Neo-Ancient design system will be implemented here.
+ */
+
+/* CSS Reset and Base Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* Placeholder for CSS variables - to be implemented in Phase 1.7 */
