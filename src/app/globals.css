@@ -1,28 +1,592 @@
 /* 
  * Global Styles for The Digital Scribe 2.0
  * 
- * This file contains global CSS variables and base styles.
- * The Neo-Ancient design system will be implemented here.
+ * This file contains the Neo-Ancient design system with Tailwind CSS v4.
+ * Uses CSS-first configuration approach with @theme directive.
  */
 
-/* CSS Reset and Base Styles */
+/* Import Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* ============================================
+   NEO-ANCIENT DESIGN SYSTEM
+   ============================================ */
+
+/* Define custom theme tokens using Tailwind CSS v4 @theme directive */
+@theme {
+  /* ===== Border Radius - Organic Values ===== */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* ===== Animation Timing Functions ===== */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-regal: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ===== Animation Durations ===== */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+
+  /* ===== Font Families ===== */
+  --font-display: var(--font-cinzel), "Times New Roman", serif;
+  --font-accent: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-crimson), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "Courier New", monospace;
+
+  /* ===== Font Sizes - Fluid Scaling ===== */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --text-3xl: clamp(2rem, 1.6rem + 2vw, 3rem);
+  --text-4xl: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+  --text-5xl: clamp(3rem, 2.5rem + 3vw, 5rem);
+
+  /* ===== Line Heights ===== */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* ===== Letter Spacing ===== */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.1em;
+  --tracking-widest: 0.2em;
+}
+
+/* ============================================
+   DEEP PAPYRUS - LIGHT THEME (Default)
+   ============================================ */
+
+:root,
+[data-theme="light"] {
+  /* ===== Primary Colors - Faded Ink ===== */
+  --color-primary: #451A03;
+  --color-primary-hover: #3A1503;
+  --color-primary-muted: rgba(69, 26, 3, 0.2);
+
+  /* ===== Secondary Colors - Burnt Sienna ===== */
+  --color-secondary: #9F4636;
+  --color-secondary-hover: #8A3B2D;
+  --color-secondary-muted: rgba(159, 70, 54, 0.2);
+
+  /* ===== Background Colors - Papyrus Tones ===== */
+  --color-background: #F0E6D2;
+  --color-background-alt: #E8DCC6;
+  --color-background-elevated: #FAF6ED;
+  --color-background-sunken: #E0D4C0;
+
+  /* ===== Foreground/Text Colors ===== */
+  --color-foreground: #451A03;
+  --color-foreground-muted: #6B4423;
+  --color-foreground-subtle: #8B7355;
+
+  /* ===== Accent Colors - Metallic Gold ===== */
+  --color-accent: #D4AF37;
+  --color-accent-hover: #C9A227;
+  --color-accent-highlight: #F5D061;
+  --color-accent-muted: rgba(212, 175, 55, 0.2);
+
+  /* ===== Stone Color ===== */
+  --color-stone: #8B7355;
+  --color-stone-light: #A89378;
+  --color-stone-dark: #6B5843;
+
+  /* ===== Border Colors ===== */
+  --color-border: #D4C5A9;
+  --color-border-strong: #B8A882;
+  --color-border-subtle: #E8DCC6;
+
+  /* ===== Semantic Colors ===== */
+  --color-success: #4A7C59;
+  --color-warning: #C9A227;
+  --color-error: #A63D40;
+  --color-info: #3E7CB1;
+
+  /* ===== Shadow Colors ===== */
+  --shadow-color: rgba(69, 26, 3, 0.1);
+  --shadow-color-strong: rgba(69, 26, 3, 0.2);
+
+  /* ===== Shadows - Embossed/Inset Effects ===== */
+  --shadow-xs: 0 1px 2px var(--shadow-color);
+  --shadow-sm: 0 2px 4px var(--shadow-color);
+  --shadow-md: 0 4px 8px var(--shadow-color), 0 2px 4px var(--shadow-color);
+  --shadow-lg: 0 8px 16px var(--shadow-color), 0 4px 8px var(--shadow-color);
+  --shadow-xl: 0 16px 32px var(--shadow-color), 0 8px 16px var(--shadow-color);
+  --shadow-inner: inset 0 2px 4px var(--shadow-color);
+  --shadow-embossed: 0 1px 0 rgba(255, 255, 255, 0.5), 0 -1px 0 var(--shadow-color);
+  --shadow-carved: inset 0 2px 4px var(--shadow-color-strong), inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+  --shadow-stone: 0 4px 12px var(--shadow-color-strong), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  /* ===== Texture Overlay Opacity ===== */
+  --texture-opacity-light: 0.15;
+  --texture-opacity-medium: 0.25;
+  --texture-opacity-heavy: 0.4;
+
+  /* ===== Texture URLs ===== */
+  --texture-papyrus: url('/textures/papyrus-light.webp');
+  --texture-stone: url('/textures/stone-grain.webp');
+  --texture-linen: url('/textures/linen-pattern.webp');
+}
+
+/* ============================================
+   LAPIS LAZULI NIGHT - DARK THEME
+   ============================================ */
+
+[data-theme="dark"] {
+  /* ===== Primary Colors - Light Papyrus Text ===== */
+  --color-primary: #F0E6D2;
+  --color-primary-hover: #FAF6ED;
+  --color-primary-muted: rgba(240, 230, 210, 0.2);
+
+  /* ===== Secondary Colors - Muted Papyrus ===== */
+  --color-secondary: #C4B5A0;
+  --color-secondary-hover: #D4C5B0;
+  --color-secondary-muted: rgba(196, 181, 160, 0.2);
+
+  /* ===== Background Colors - Deep Lapis ===== */
+  --color-background: #0F172A;
+  --color-background-alt: #1E293B;
+  --color-background-elevated: #334155;
+  --color-background-sunken: #0A0F1A;
+
+  /* ===== Foreground/Text Colors ===== */
+  --color-foreground: #F0E6D2;
+  --color-foreground-muted: #C4B5A0;
+  --color-foreground-subtle: #94A3B8;
+
+  /* ===== Accent Colors - Luminous Gold ===== */
+  --color-accent: #FFD700;
+  --color-accent-hover: #FFDF33;
+  --color-accent-highlight: #FFE866;
+  --color-accent-muted: rgba(255, 215, 0, 0.2);
+
+  /* ===== Lapis Accent ===== */
+  --color-lapis: #1E3A5F;
+  --color-lapis-light: #2D4A6F;
+  --color-lapis-dark: #0F2A4F;
+
+  /* ===== Stone Color (adapted for dark) ===== */
+  --color-stone: #64748B;
+  --color-stone-light: #94A3B8;
+  --color-stone-dark: #475569;
+
+  /* ===== Border Colors ===== */
+  --color-border: #334155;
+  --color-border-strong: #475569;
+  --color-border-subtle: #1E293B;
+
+  /* ===== Semantic Colors (adjusted for dark) ===== */
+  --color-success: #6EE7B7;
+  --color-warning: #FCD34D;
+  --color-error: #F87171;
+  --color-info: #7DD3FC;
+
+  /* ===== Shadow Colors ===== */
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-color-strong: rgba(0, 0, 0, 0.5);
+
+  /* ===== Shadows - Adapted for Dark Mode ===== */
+  --shadow-xs: 0 1px 2px var(--shadow-color);
+  --shadow-sm: 0 2px 4px var(--shadow-color);
+  --shadow-md: 0 4px 8px var(--shadow-color), 0 2px 4px var(--shadow-color);
+  --shadow-lg: 0 8px 16px var(--shadow-color), 0 4px 8px var(--shadow-color);
+  --shadow-xl: 0 16px 32px var(--shadow-color), 0 8px 16px var(--shadow-color);
+  --shadow-inner: inset 0 2px 4px var(--shadow-color);
+  --shadow-embossed: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 var(--shadow-color);
+  --shadow-carved: inset 0 2px 4px var(--shadow-color-strong), inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+  --shadow-stone: 0 4px 12px var(--shadow-color-strong), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  /* ===== Texture Overlay Opacity (reduced for dark) ===== */
+  --texture-opacity-light: 0.08;
+  --texture-opacity-medium: 0.15;
+  --texture-opacity-heavy: 0.25;
+
+  /* ===== Texture URLs (dark variants) ===== */
+  --texture-papyrus: url('/textures/papyrus-dark.webp');
+}
+
+/* ============================================
+   CSS RESET AND BASE STYLES
+   ============================================ */
+
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
-    min-height: 100vh;
-    line-height: 1.5;
+  min-height: 100vh;
+  line-height: var(--leading-normal);
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition: background-color var(--duration-normal) var(--ease-smooth),
+              color var(--duration-normal) var(--ease-smooth);
 }
 
-/* Placeholder for CSS variables - to be implemented in Phase 1.7 */
+/* ============================================
+   TAILWIND-COMPATIBLE UTILITY CLASSES
+   ============================================ */
+
+/* ===== Text Colors Using CSS Variables ===== */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-primary-hover:hover {
+  color: var(--color-primary-hover);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-secondary-hover:hover {
+  color: var(--color-secondary-hover);
+}
+
+.text-foreground {
+  color: var(--color-foreground);
+}
+
+.text-foreground-muted {
+  color: var(--color-foreground-muted);
+}
+
+.text-foreground-subtle {
+  color: var(--color-foreground-subtle);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.text-accent-highlight {
+  color: var(--color-accent-highlight);
+}
+
+.text-stone {
+  color: var(--color-stone);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+.text-info {
+  color: var(--color-info);
+}
+
+/* ===== Background Colors with Texture Overlays ===== */
+.bg-primary {
+  background-color: var(--color-background);
+}
+
+.bg-alt {
+  background-color: var(--color-background-alt);
+}
+
+.bg-elevated {
+  background-color: var(--color-background-elevated);
+}
+
+.bg-sunken {
+  background-color: var(--color-background-sunken);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-accent-muted {
+  background-color: var(--color-accent-muted);
+}
+
+.bg-stone {
+  background-color: var(--color-stone);
+}
+
+/* Texture overlay utilities */
+.texture-papyrus {
+  position: relative;
+}
+
+.texture-papyrus::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--texture-papyrus);
+  background-size: 300px 300px;
+  opacity: var(--texture-opacity-medium);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.texture-stone {
+  position: relative;
+}
+
+.texture-stone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--texture-stone);
+  background-size: 200px 200px;
+  opacity: var(--texture-opacity-light);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.texture-linen {
+  position: relative;
+}
+
+.texture-linen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--texture-linen);
+  background-size: 150px 150px;
+  opacity: var(--texture-opacity-light);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ===== Border Styles for Stone/Carved Effects ===== */
+.border-default {
+  border: 1px solid var(--color-border);
+}
+
+.border-strong {
+  border: 2px solid var(--color-border-strong);
+}
+
+.border-subtle {
+  border: 1px solid var(--color-border-subtle);
+}
+
+.border-accent {
+  border: 2px solid var(--color-accent);
+}
+
+.border-carved {
+  border: 2px solid var(--color-border-strong);
+  box-shadow: var(--shadow-carved);
+}
+
+.border-embossed {
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-embossed);
+}
+
+.border-hieroglyphic {
+  border: 2px solid var(--color-border-strong);
+  border-image: repeating-linear-gradient(
+    90deg,
+    var(--color-accent) 0px,
+    var(--color-accent) 4px,
+    transparent 4px,
+    transparent 8px
+  ) 2;
+}
+
+/* ===== Shadow Utilities for Embossed Effects ===== */
+.shadow-xs {
+  box-shadow: var(--shadow-xs);
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+.shadow-inner {
+  box-shadow: var(--shadow-inner);
+}
+
+.shadow-embossed {
+  box-shadow: var(--shadow-embossed);
+}
+
+.shadow-carved {
+  box-shadow: var(--shadow-carved);
+}
+
+.shadow-stone {
+  box-shadow: var(--shadow-stone);
+}
+
+/* ===== Cartouche Surface Effect ===== */
+.cartouche-surface {
+  background: linear-gradient(
+    145deg,
+    var(--color-background-elevated) 0%,
+    var(--color-background) 50%,
+    var(--color-background-alt) 100%
+  );
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 var(--shadow-color);
+}
+
+/* ===== Border Radius Utilities ===== */
+.rounded-organic-xs {
+  border-radius: var(--radius-xs);
+}
+
+.rounded-organic-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-organic-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-organic-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-organic-xl {
+  border-radius: var(--radius-xl);
+}
+
+/* ===== Typography Utilities ===== */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-accent {
+  font-family: var(--font-accent);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ===== Transition Utilities ===== */
+.transition-smooth {
+  transition-timing-function: var(--ease-smooth);
+  transition-duration: var(--duration-normal);
+}
+
+.transition-regal {
+  transition-timing-function: var(--ease-regal);
+  transition-duration: var(--duration-slow);
+}
+
+/* ===== Gold Shimmer Effect ===== */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    var(--color-accent-highlight) 50%,
+    var(--color-accent) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: -200% center;
+  }
+  50% {
+    background-position: 200% center;
+  }
+}
+
+/* ===== Focus States for Accessibility ===== */
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ===== Selection Styling ===== */
+::selection {
+  background-color: var(--color-accent-muted);
+  color: var(--color-foreground);
+}
+
+/* ===== Scrollbar Styling ===== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-stone);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) var(--color-background-alt);
+}
